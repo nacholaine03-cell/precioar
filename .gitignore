@@ -1,0 +1,11 @@
+node_modules
+.next
+.env.local
+*.zip
+tmp-sepa
+
+certificates
+data/ml-token.json
+*.log
+next-env.d.ts
+/heropar.png
