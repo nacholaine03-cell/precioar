@@ -74,7 +74,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const provincia = searchParams.get('provincia')?.trim() || undefined;
 
-  const [categorias, carrusel, actualizado_en] = await Promise.all([
+  const [categorias, actualizado_en] = await Promise.all([
     Promise.all(
       CATEGORIAS.map(async (c) => ({
         nombre: c.nombre,
@@ -82,9 +82,16 @@ export async function GET(request: Request) {
         items: await masBaratosDeCategoria(c.palabras, 8, provincia),
       }))
     ),
-    masBaratosDeCategoria(CATEGORIAS.flatMap((c) => c.palabras), 12, provincia),
     ultimaActualizacion(),
   ]);
+
+  // El carrusel sale de los mismos resultados de las categorías (ordenados
+  // por precio) en vez de una consulta nueva con las ~30 palabras clave
+  // combinadas — esa consulta gigante hacía timeout en Postgres.
+  const carrusel = categorias
+    .flatMap((c) => c.items)
+    .sort((a, b) => a.precio - b.precio)
+    .slice(0, 12);
 
   return NextResponse.json({
     categorias: categorias.filter((c) => c.items.length > 0),
