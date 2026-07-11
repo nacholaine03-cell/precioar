@@ -1,4 +1,6 @@
-# Tiendaw (PreciosAr) — Buscador de ofertas
+# PreciosAr — Buscador de ofertas
+
+En vivo: https://preciosar.netlify.app
 
 Buscador que compara precios de un catálogo curado de MercadoLibre (con link de afiliado)
 y supermercados (Carrefour, Vea, Día, La Anónima — vía datos abiertos SEPA).
