@@ -79,6 +79,7 @@ export async function buscarML(query: string): Promise<Resultado[]> {
     const link = affiliateId ? `${item.permalink}?matt_tool=${affiliateId}&matt_word=${affiliateId}` : item.permalink;
     return {
       fuente: 'mercadolibre',
+      seccion: 'ml',
       id: item.id,
       titulo: item.title,
       precio: item.price,
